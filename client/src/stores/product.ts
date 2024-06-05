@@ -107,6 +107,16 @@ export const useProductStore = defineStore("product", () => {
         }
     };
 
+    const searchProducts = async (searchTerm) => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/products/search?term=${searchTerm}`);
+            return response.data;
+        } catch (error) {
+            console.error("Erreur lors de la recherche de produits :", error);
+            return [];
+        }
+    };
+
     return {
         favorites,
         history,
@@ -117,5 +127,6 @@ export const useProductStore = defineStore("product", () => {
         addToHistory,
         fetchAllHistories,
         deleteHistory,
+        searchProducts,
     };
 });

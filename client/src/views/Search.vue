@@ -1,39 +1,38 @@
 <script setup>
-import Button from '../components/Button.vue';
+import { useProductStore } from "@/stores/product";
 import { ref } from "vue";
+import { useRoute } from 'vue-router';
 
-let input = ref("");
+const route = useRoute();
+const searchTerm = route.params.term;
 
-const aliments = ["biscuits", "banane", "chocolat"];
+const productStore = useProductStore();
+const { searchProducts } = productStore;
 
-function filteredList() {
-  return aliments.filter((aliment) =>
-    aliment.toLowerCase().includes(input.value.toLowerCase())
-  );
-}
+const input = ref("");
+
+const filteredProducts = ref([]);
+
+const searchProductsHandler = async () => {
+  filteredProducts.value = await searchProducts(searchTerm);
+};
 </script>
 
 <template>
   <div class="container">
-    
-    <h2>Rechercher un aliment</h2>
-    <hr/>
-    
-    
-    <input type="text" v-model="input" placeholder="Rechercher un aliment..." />
-    <div class="item aliment" v-for="aliment in filteredList()" :key="fruit">
-      <p>{{ aliment }}</p>
+        <h2>Rechercher un aliment</h2>
+        <hr/>
+        <input type="text" v-model="input" placeholder="Rechercher un aliment..." />
+        <div class="item aliment" v-for="product in filteredProducts" :key="product.barcode">
+            <p>{{ product.name }}</p>
+        </div>
+        <div class="item error" v-if="input && !filteredProducts.length">
+            <p>Aucun résultat trouvé !</p>
+        </div>
+        <div class="button-container">
+            <Button @click="searchProductsHandler">Rechercher</Button>
+        </div>
     </div>
-    <div class="item error" v-if="input&&!filteredList().length">
-      <p>No results found!</p>
-    </div>
-    
-    <div class="button-container">
-      <Button @click="$emit('someEvent')">Rechercher</Button>
-    </div>
-    <!-- <MyComponent @some-event="callback" /> -->
-  </div>
-
 </template>
 
 <style scoped>

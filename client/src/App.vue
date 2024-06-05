@@ -21,42 +21,46 @@ onMounted(async () => {
 </script>
 
 <template>
-    <header>
+    <div id="app">
+      <header>
         <router-link class="router-logo" to="/"><img class="logo" src="@/img/logo.png" /></router-link>
         <router-link to="/profil"><img src="@/img/profile.png" /></router-link>
-    </header>
-    <main>
+      </header>
+      <main>
         <router-view></router-view>
-    </main>
-    <footer>
+      </main>
+      <footer>
         <nav>
-            <router-link class="router" to="/scan"
-                ><div class="img-p">
-                    <img src="@/img/scan.png" />
-                    <p>Scan</p>
-                </div></router-link
-            >
-            <router-link class="router" to="/history"
-                ><div class="img-p">
-                    <img src="@/img/history.png" />
-                    <p>Historique</p>
-                </div></router-link
-            >
-            <router-link class="router" to="/favorites"
-                ><div class="img-p">
-                    <img src="@/img/favorite.png" />
-                    <p>Favoris</p>
-                </div></router-link
-            >
-            <router-link class="router" to="/search"
-                ><div class="img-p">
-                    <img src="@/img/search.png" />
-                    <p>Recherche</p>
-                </div></router-link
-            >
+          <router-link class="router" to="/scan">
+            <div class="img-p">
+              <img src="@/img/scan.png" />
+              <p>Scan</p>
+            </div>
+          </router-link>
+          <router-link class="router" to="/history">
+            <div class="img-p">
+              <img src="@/img/history.png" />
+              <p>Historique</p>
+            </div>
+          </router-link>
+          <router-link class="router" to="/favorites">
+            <div class="img-p">
+              <img src="@/img/favorite.png" />
+              <p>Favoris</p>
+            </div>
+          </router-link>
+          <router-link class="router" to="/search">
+            <div class="img-p">
+              <img src="@/img/search.png" />
+              <p>Recherche</p>
+            </div>
+          </router-link>
         </nav>
-    </footer>
-</template>
+      </footer>
+      <Search @someEvent="handleSearchEvent" />
+      <!-- Autres composants -->
+    </div>
+  </template>
 
 <style scoped>
 header {
